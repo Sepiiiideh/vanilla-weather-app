@@ -13,29 +13,63 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="src/style.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <div class="container">
-      <div class="weatherApp">
-        <div class="row">
-          <div class="col-6">
-            <img
-              src="https://ssl.gstatic.com/onebox/weather/64/sunny_s_cloudy.png"
-              alt="cloudy"
-            />
-            6 °C| °F
-            <ul>
-              <li>Precipitation: 4%</li>
-              <li>Humidity: 48%</li>
-              <li>Wind: 14 mph</li>
-            </ul>
-          </div>
-          <div class="col-6">
-            <p>Tehran, Tehran Province</p>
-            <ul>
-              <li>Saturday 23:00</li>
-              <li>Clear with periodic clouds</li>
-            </ul>
+      <div class="weather-app-wrapper">
+        <div class="weatherApp">
+          <form id="search-form" class="mb-5">
+            <div class="row">
+              <div class="col-9">
+                <input
+                  type="search"
+                  placeholder="Type a city.."
+                  class="form-control"
+                  id="city-input"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="col-3">
+                <input
+                  type="submit"
+                  value="Search"
+                  class="btn btn-primary w-100"
+                />
+              </div>
+            </div>
+          </form>
+          <div class="row">
+            <div class="col-6">
+              <div class="clear-fix">
+                <img
+                  id="icon"
+                  class="weather-Img"
+                  src="https://ssl.gstatic.com/onebox/weather/64/sunny_s_cloudy.png"
+                  alt="cloudy"
+                />
+                <div class="degree">
+                  <span id="temperature" class="degree-Number">6</span>
+                  <div class="degree-Metrics">
+                    <a id="celcius-link" class="active" href="#">°C</a>|
+                    <a id="farenhite-link" href="#">°F</a>
+                  </div>
+                </div>
+                <div class="weather-Conditions">
+                  <ul>
+                    <li>Humidity: <span id="humidity">48</span>%</li>
+                    <li>Wind: <span id="wind">14</span> mph</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 description">
+              <div id="city" class="city">Tehran, Tehran Province</div>
+              <div id="date" class="date">Saturday 23:00</div>
+              <div id="condition" class="condition">
+                Clear with periodic clouds
+              </div>
+            </div>
           </div>
         </div>
         <smal

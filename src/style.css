@@ -1,24 +1,83 @@
 body {
   font-family: Google Sans, arial, sans-serif;
 }
-.weatherApp {
-  max-width: 600px;
+.weather-app-wrapper {
+  max-width: 650px;
   margin: 30px auto;
+}
+.weatherApp {
   padding: 20px;
   border: 1px solid #dadde1;
   border-radius: 5px;
 }
-p {
+ul {
+  padding-left: 0;
+}
+li {
+  list-style: none;
+}
+.clearfix {
+  display: inline-block;
+  vertical-align: top;
+}
+.weather-Img {
+  display: inline-block;
+  height: 60px;
+  vertical-align: top;
+  width: 60px;
+}
+.degree {
+  display: inline-block;
+  vertical-align: top;
+}
+.weather-Conditions {
+  display: inline-block;
+  color: #70757a;
+  font-size: 12px;
+  line-height: 16px;
+  padding-left: 9px;
+  padding-top: 6px;
+}
+.degree-Number {
+  color: #202124;
+  font-size: 48px;
+  line-height: 60px;
+  vertical-align: top;
+}
+.degree-Metrics {
+  color: #202124;
+  display: inline-block;
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: 6px;
+  padding-left: 6px;
+  vertical-align: top;
+}
+.description {
+  text-align: right;
+  display: inline-block;
+  vertical-align: top;
+}
+.city {
   color: #202124;
   font-size: 22px;
   line-height: 26px;
   font-weight: 400;
 }
-li {
+.date,
+.condition {
   color: #70757a;
   font-size: 16px;
-  line-height: 16px;
-  padding-left: 9px;
-  padding-top: 6px;
-  list-style: none;
+  line-height: 20px;
+}
+a {
+  text-decoration: none;
+}
+.active {
+  color: rgb(33, 33, 33);
+  cursor: default;
+}
+.active:hover {
+  text-decoration: none;
+  color: rgb(33, 33, 33);
 }
