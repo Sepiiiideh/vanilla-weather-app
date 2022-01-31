@@ -45,7 +45,6 @@ function displayTemperature(response) {
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
   getForecast(response.data.coord);
-  displayForecast();
 }
 
 function search(city) {
@@ -77,26 +76,44 @@ function displayCelcius(event) {
   farenhitelink.classList.remove("active");
 }
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
+
 function displayForecast(response) {
+  let forecast = response.data.daily;
   let forecastHtml = `<div class="row">`;
-  let days = ["Thu", "Fri", "Sat"];
-  days.forEach(function (day) {
-    forecastHtml =
-      forecastHtml +
-      `<div class="col-2">
-                  <div class="weather-forecast-date">${day}</div>
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHtml =
+        forecastHtml +
+        `<div class="col-2">
+                  <div class="weather-forecast-date">${formatDay(
+                    forecastDay.dt
+                  )}</div>
 
                   <img
                     class="forecast-img"
-                    src="https://ssl.gstatic.com/onebox/weather/64/sunny_s_cloudy.png"
+                    src="http://openweathermap.org/img/wn/${
+                      forecastDay.weather[0].icon
+                    }@2x.png"
                     alt=""
                     width="36"
                   />
                   <div class="weather-forecast-temprature">
-                    <span class="weather-forecast-temprature-max">18° </span>
-                    <span class="weather-forecast-temprature-min">12°</span>
+                    <span class="weather-forecast-temprature-max">${Math.round(
+                      forecastDay.temp.max
+                    )}° </span>
+                    <span class="weather-forecast-temprature-min">${Math.round(
+                      forecastDay.temp.min
+                    )}°</span>
                   </div>
                 </div>`;
+    }
   });
 
   forecastHtml = forecastHtml + `</div>`;
