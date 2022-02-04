@@ -39,10 +39,15 @@ function displayTemperature(response) {
   humidityElement.innerHTML = response.data.main.humidity;
   windElement.innerHTML = Math.round(response.data.wind.speed);
   dateElement.innerHTML = formatDate(response.data.dt * 1000);
-  iconElement.setAttribute(
-    "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-  );
+  let iconSVGname = icons[response.data.weather[0].icon];
+  if (iconSVGname) {
+    iconElement.setAttribute("src", `Icons/${iconSVGname}.svg`);
+  } else {
+    iconElement.setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    );
+  }
   iconElement.setAttribute("alt", response.data.weather[0].description);
   getForecast(response.data.coord);
 }
@@ -89,6 +94,12 @@ function displayForecast(response) {
   let forecastHtml = `<div class="row">`;
   forecast.forEach(function (forecastDay, index) {
     if (index < 6) {
+      let srcPath = "";
+      if (icons[forecastDay.weather[0].icon]) {
+        srcPath = `Icons/${icons[forecastDay.weather[0].icon]}.svg`;
+      } else {
+        srcPath = `http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png`;
+      }
       forecastHtml =
         forecastHtml +
         `<div class="col-2">
@@ -98,11 +109,11 @@ function displayForecast(response) {
 
                   <img
                     class="forecast-img"
-                    src="http://openweathermap.org/img/wn/${
-                      forecastDay.weather[0].icon
-                    }@2x.png"
+                    src=` +
+        srcPath +
+        `
                     alt=""
-                    width="36"
+                    width="50"
                   />
                   <div class="weather-forecast-temprature">
                     <span class="weather-forecast-temprature-max">${Math.round(
@@ -119,6 +130,8 @@ function displayForecast(response) {
   forecastHtml = forecastHtml + `</div>`;
   forecastElemnt = document.querySelector("#forecast");
   forecastElemnt.innerHTML = forecastHtml;
+  debugger;
+  setTimeZoneSettings(response.data.current.weather[0].icon);
 }
 
 function getForecast(coordinates) {
@@ -126,6 +139,96 @@ function getForecast(coordinates) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
 }
+function setTimeZoneSettings(inputString) {
+  let weatherAppElem = document.querySelector(".weatherApp");
+  let dateElem = document.querySelector("#date");
+  let condElem = document.querySelector("#condition");
+  let cityElem = document.querySelector("#city");
+  let degreeNumElem = document.querySelector(".degree-Number");
+  let weatherCondElem = document.querySelector("#weather-Conditions");
+  let weatherForecastDateElem = document.querySelectorAll(
+    ".weather-forecast-date"
+  );
+  let weatherMinElem = document.querySelectorAll(
+    ".weather-forecast-temprature-min"
+  );
+  let weatherMaxElem = document.querySelectorAll(
+    ".weather-forecast-temprature-max"
+  );
+  if (inputString.includes("d")) {
+    weatherAppElem.classList.add("day");
+    weatherAppElem.classList.remove("night");
+    dateElem.classList.add("day");
+    dateElem.classList.remove("night");
+    condElem.classList.add("day");
+    condElem.classList.remove("night");
+    cityElem.classList.add("day");
+    cityElem.classList.remove("night");
+    weatherCondElem.classList.add("day");
+    weatherCondElem.classList.remove("night");
+    degreeNumElem.classList.add("day");
+    degreeNumElem.classList.remove("night");
+    weatherMinElem.forEach(function (element) {
+      element.classList.add("day");
+      element.classList.remove("night");
+    });
+    weatherMaxElem.forEach(function (element) {
+      element.classList.add("day");
+      element.classList.remove("night");
+    });
+    weatherForecastDateElem.forEach(function (element) {
+      element.classList.add("day");
+      element.classList.remove("night");
+    });
+  } else {
+    weatherAppElem.classList.add("night");
+    weatherAppElem.classList.remove("day");
+    dateElem.classList.add("night");
+    dateElem.classList.remove("day");
+    condElem.classList.add("night");
+    condElem.classList.remove("day");
+    cityElem.classList.add("night");
+    cityElem.classList.remove("day");
+    weatherCondElem.classList.add("night");
+    weatherCondElem.classList.remove("day");
+    degreeNumElem.classList.add("night");
+    degreeNumElem.classList.remove("day");
+    weatherMinElem.forEach(function (element) {
+      element.classList.add("night");
+      element.classList.remove("day");
+    });
+    weatherMaxElem.forEach(function (element) {
+      element.classList.add("night");
+      element.classList.remove("day");
+    });
+    weatherForecastDateElem.forEach(function (element) {
+      element.classList.add("night");
+      element.classList.remove("day");
+    });
+  }
+}
+
+let icons = {
+  "01d": "clear-day",
+  "01n": "clear-night",
+  "02d": "partly-cloudy-day",
+  "02n": "partly-cloudy-night",
+  "03d": "cloudy",
+  "03n": "cloudy",
+  "04d": "overcast-day",
+  "04n": "overcast-night",
+  "09d": "partly-cloudy-day-rain",
+  "09n": "partly-cloudy-night-rain",
+  "10d": "partly-cloudy-day-drizzle",
+  "10n": "partly-cloudy-night-drizzle",
+  "11d": "thunderstorms-day",
+  "11n": "thunderstorms-night",
+  "13d": "partly-cloudy-day-snow",
+  "13n": "partly-cloudy-night-snow",
+  "50d": "mist",
+  "50n": "mist",
+};
+console.log(icons);
 
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);

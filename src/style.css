@@ -10,6 +10,20 @@ body {
   border: 1px solid #dadde1;
   border-radius: 5px;
 }
+.weatherApp.night {
+  background: radial-gradient(
+    919px at 1.7% 6.1%,
+    rgb(41, 58, 76) 0%,
+    rgb(40, 171, 226) 100.2%
+  );
+}
+.weatherApp.day {
+  background: linear-gradient(
+    109.6deg,
+    rgb(204, 228, 247) 11.2%,
+    rgb(237, 246, 250) 100.2%
+  );
+}
 ul {
   padding-left: 0;
 }
@@ -22,30 +36,40 @@ li {
 }
 .weather-Img {
   display: inline-block;
-  height: 60px;
+  height: 100px;
   vertical-align: top;
-  width: 60px;
+  width: 100px;
 }
 .degree {
   display: inline-block;
   vertical-align: top;
+  padding-top: 20px;
 }
 .weather-Conditions {
   display: inline-block;
-  color: #70757a;
   font-size: 12px;
   line-height: 16px;
   padding-left: 9px;
-  padding-top: 6px;
+  padding-top: 30px;
+}
+.weather-Conditions.day {
+  color: #70757a;
+}
+.weather-Conditions.night {
+  color: #e6ecf3;
 }
 .degree-Number {
-  color: #202124;
   font-size: 48px;
   line-height: 60px;
   vertical-align: top;
 }
-.degree-Metrics {
+.degree-Number.day {
   color: #202124;
+}
+.degree-Number.night {
+  color: #e5e9f7;
+}
+.degree-Metrics {
   display: inline-block;
   font-size: 16px;
   line-height: 24px;
@@ -53,20 +77,42 @@ li {
   padding-left: 6px;
   vertical-align: top;
 }
+.degree-Metrics.day {
+  color: #202124;
+}
+.degree-Metrics.night {
+  color: #cdd0da;
+}
 .description {
   text-align: right;
   display: inline-block;
   vertical-align: top;
 }
 .city {
-  color: #202124;
   font-size: 22px;
   line-height: 26px;
   font-weight: 400;
 }
+.city.day {
+  color: #202124;
+}
+.city.night {
+  color: #fff;
+}
 .date,
 .condition {
+  font-size: 16px;
+  line-height: 20px;
+}
+.date.day,
+.condition.day {
   color: #70757a;
+  font-size: 16px;
+  line-height: 20px;
+}
+.date.night,
+.condition.night {
+  color: #e2f7f7;
   font-size: 16px;
   line-height: 20px;
 }
@@ -94,9 +140,30 @@ a {
   font-size: 16px;
   opacity: 0.6;
 }
+.weather-forecast-date.day {
+  color: black;
+}
+.weather-forecast-date.night {
+  color: white;
+}
 .weather-forecast-temprature {
   font-size: 13px;
 }
 .weather-forecast-temprature-min {
   opacity: 0.6;
+}
+.weather-forecast-temprature-max.day {
+  color: black;
+}
+.weather-forecast-temprature-max.night {
+  color: white;
+}
+.weather-forecast-temprature-min.day {
+  color: black;
+}
+.weather-forecast-temprature-min.night {
+  color: white;
+}
+.footer {
+  font-size: 12px;
 }
